@@ -1,0 +1,8 @@
+output/
+data/
+*.ply
+*.obj
+*.exe
+*.zip
+*.bin
+*.out
