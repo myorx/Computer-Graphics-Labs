@@ -120,14 +120,18 @@ void display() {
     glRotatef(g_rotY, 0.0f, 1.0f, 0.0f);
     glScalef(g_zoom, g_zoom, g_zoom);
 
-    // 绘制模型
-    for (const auto& f : g_faces) {
-        calculateAndSetNormal(f);
-        glBegin(GL_POLYGON);
-        for (int idx : f.vIndices) {
-            glVertex3f(g_vertices[idx].x, g_vertices[idx].y, g_vertices[idx].z);
+    // 仓库未附带 OBJ 模型时，使用 GLUT 内置茶壶。
+    if (g_faces.empty()) {
+        glutSolidTeapot(1.0);
+    } else {
+        for (const auto& f : g_faces) {
+            calculateAndSetNormal(f);
+            glBegin(GL_POLYGON);
+            for (int idx : f.vIndices) {
+                glVertex3f(g_vertices[idx].x, g_vertices[idx].y, g_vertices[idx].z);
+            }
+            glEnd();
         }
-        glEnd();
     }
 
     glutSwapBuffers();
@@ -180,17 +184,16 @@ void reshape(int w, int h) {
 }
 
 int main(int argc, char** argv) {
+    const std::string modelPath = argc > 1 ? argv[1] : "";
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1024, 768);
     glutCreateWindow("Computer Graphics Lab 1 - Perfect Teapot");
 
-    // 加载文件：先尝试子目录，再尝试同级目录
-    if (!loadOBJ("assets/models/teapot.obj")) {
-        if (!loadOBJ("teapot.obj")) {
-            std::cerr << "Error: Cannot find teapot.obj" << std::endl;
-            return -1;
-        }
+    // 可以传入 OBJ 文件路径；默认使用 GLUT 内置茶壶。
+    if (!modelPath.empty() && !loadOBJ(modelPath)) {
+        std::cerr << "Cannot load OBJ model: " << modelPath << std::endl;
+        return 1;
     }
 
     init();

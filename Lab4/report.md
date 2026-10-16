@@ -1,11 +1,6 @@
 # 实验报告：3D 高斯溅射（3DGS）的探索与优化
 ## ——基于不透明度的场景剪枝策略
 
-**姓名**：毛洋洋  
-**学号**：202300130042  
-**专业**：泰山学堂（计算机）  
-**日期**：2026年1月15日
-
 ---
 
 ## 一、 引言
@@ -137,6 +132,6 @@ def prune_gaussians(self, threshold):
 
 ## 附录：关键脚本与文件说明
 *   `my_prune.py` / `my_prune_scale.py`: 剪枝核心算法。
-*   `auto_eval_quality.py`: 质量评估与 `quality_curve.png` 生成。
+*   `eval_psnr.py`: 质量评估与 `quality_curve.png` 生成。
 *   `plot_results.py`: 性能指标与趋势图生成。
 *   `compare.png` / `base.png` / `0.2.png`: 质量评估参考图像。

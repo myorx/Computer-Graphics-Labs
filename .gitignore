@@ -1,8 +1,15 @@
 output/
 data/
 *.ply
-*.obj
 *.exe
 *.zip
 *.bin
 *.out
+build/
+.vscode/
+.idea/
+.venv/
+__pycache__/
+*.py[cod]
+*.o
+*.log
